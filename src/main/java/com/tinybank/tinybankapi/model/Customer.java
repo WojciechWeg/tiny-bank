@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by pkalamucki on 05.04.2018.
- */
+
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -28,10 +26,14 @@ public class Customer {
     @Column(name = "address")
     private  String address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private  List<Account> accounts;
 
-    public Customer( String name, String surname, Date birthDate, String address, List<Account> accounts) {
+    public Customer() {
+    }
+
+    public Customer(String name, String surname, Date birthDate, String address, List<Account> accounts) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;

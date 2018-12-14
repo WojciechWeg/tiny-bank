@@ -2,9 +2,6 @@ package com.tinybank.tinybankapi.model;
 
 import javax.persistence.*;
 
-/**
- * Created by pkalamucki on 05.04.2018.
- */
 
 @Entity
 @Table(name = "accounts")
@@ -20,7 +17,10 @@ public class Account {
     @Column(name="display_name")
     private  String displayName;
 
-    public Account( Customer customer, String displayName) {
+    public Account() {
+    }
+
+    public Account(Customer customer, String displayName) {
 
         this.customer = customer;
         this.displayName = displayName;

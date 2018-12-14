@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class Bootstrap implements CommandLineRunner {
@@ -25,10 +26,28 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
+
         Customer customer1 = new Customer("Jan","Kowalski", new Date(),"Marszalkowska",
                 new ArrayList<>());
 
         customerRepository.save(customer1);
+
+        Customer customer2 = new Customer("Maria","Kowalska", new Date(),"Marszalkowska",
+                new ArrayList<>());
+
+        customerRepository.save(customer2);
+
+        Account account1 = new Account(customer1,"KontoOszczednosciowe");
+        Account account2 = new Account(customer1,"KontoInwestycyjne");
+
+        accountRepository.save(account2);
+        accountRepository.save(account1);
+
+        List<Account> accountsOfCustomer1 = new ArrayList<>();
+        accountsOfCustomer1.add(account1);
+        accountsOfCustomer1.add(account2);
+
+        customer1.setAccounts(accountsOfCustomer1);
 
         System.out.println("Customers loaded.");
     }
