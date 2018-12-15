@@ -1,5 +1,7 @@
 package com.tinybank.tinybankapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonIgnoreProperties(value={ "customer" })
     private  List<Account> accounts;
 
     public Customer() {

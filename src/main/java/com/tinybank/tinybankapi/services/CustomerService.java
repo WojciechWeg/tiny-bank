@@ -15,4 +15,12 @@ public interface CustomerService {
 
     List<Customer> getAllCustomers();
 
+    Customer getCustomerById(Long id);
+
+    void deleteCustomerById(Long id);
+
+    Customer createNewCustomer(Customer customer);
+
+    Customer saveCustomer(Long id, Customer customer);
+
 }

@@ -1,5 +1,7 @@
 package com.tinybank.tinybankapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 
@@ -12,6 +14,7 @@ public class Account {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnoreProperties
     private  Customer customer;
 
     @Column(name="display_name")
