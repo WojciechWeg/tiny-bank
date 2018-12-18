@@ -9,10 +9,6 @@ import java.util.List;
 public interface CustomerService {
 
 
-    Customer createCustomer();
-
-    Account addAccount();
-
     List<Customer> getAllCustomers();
 
     Customer getCustomerById(Long id);

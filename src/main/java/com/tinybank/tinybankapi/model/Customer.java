@@ -28,8 +28,7 @@ public class Customer {
     @Column(name = "address")
     private  String address;
 
-    @OneToMany(mappedBy = "customer",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties(value={ "customer" })
     private  List<Account> accounts;
 
@@ -91,4 +90,6 @@ public class Customer {
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
+
+    public void addAccount(Account account) {this.accounts.add(account);}
 }

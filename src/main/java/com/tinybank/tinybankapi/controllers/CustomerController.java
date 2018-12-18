@@ -1,13 +1,13 @@
 package com.tinybank.tinybankapi.controllers;
 
+import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.model.Customer;
+import com.tinybank.tinybankapi.services.AccountService;
 import com.tinybank.tinybankapi.services.CustomerService;
 
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,10 +17,11 @@ public class CustomerController {
     public static final  String BASE_URL = "api/customers";
 
     private final CustomerService customerService;
+    private final AccountService accountService;
 
-
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, AccountService accountService) {
         this.customerService = customerService;
+        this.accountService = accountService;
     }
 
     @GetMapping
@@ -44,7 +45,16 @@ public class CustomerController {
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public  void updateCustomer(@PathVariable Long id, @RequestBody Customer customer){
-         customerService.saveCustomer(id, customer);}
+    public  void updateCustomer(@PathVariable Long id, @RequestBody Customer customer){ customerService.saveCustomer(id, customer);}
+
+
+    @PutMapping({"/{id}/open_account"})
+    @ResponseStatus(HttpStatus.OK)
+    public void openAccount(@PathVariable Long id, @RequestBody Account account){
+        account.setCustomer(customerService.getCustomerById(id));
+        customerService.getCustomerById(id).addAccount(account);
+        accountService.addAccount(account);
+
+    }
 
 }
