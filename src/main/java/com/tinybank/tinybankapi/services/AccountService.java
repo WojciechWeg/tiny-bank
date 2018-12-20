@@ -1,15 +1,14 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.model.Account;
-import org.springframework.stereotype.Service;
+import com.tinybank.tinybankapi.modelDAO.AccountDAO;
 
 import java.util.List;
 
 
 public interface AccountService {
 
-    Account addAccount(Account account);
+    AccountDAO addAccount(AccountDAO accountDAO);
 
-    List<Account> getAccountList();
+    List<AccountDAO> getAccountList();
 
 }

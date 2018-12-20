@@ -1,7 +1,9 @@
 package com.tinybank.tinybankapi.controllers;
 
-import com.tinybank.tinybankapi.model.Account;
-import com.tinybank.tinybankapi.model.Customer;
+import com.tinybank.tinybankapi.modelDAO.AccountDAO;
+import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
+import com.tinybank.tinybankapi.modelDTO.AccountDTO;
+import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
 import com.tinybank.tinybankapi.services.AccountService;
 import com.tinybank.tinybankapi.services.CustomerService;
 
@@ -26,13 +28,13 @@ public class CustomerController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Customer> getListOfCustomers(){
+    public List<CustomerDAO> getListOfCustomers(){
        return customerService.getAllCustomers();
     }
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public  Customer getCustomer(@PathVariable Long id) {return  customerService.getCustomerById(id);}
+    public CustomerDAO getCustomer(@PathVariable Long id) {return  customerService.getCustomerById(id);}
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
@@ -40,20 +42,27 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewCustomer(@RequestBody Customer customer) {customerService.createNewCustomer(customer);}
+    public void createNewCustomer(@RequestBody CustomerDTO customerDTO) {customerService.createNewCustomer(customerDTO);}
 
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public  void updateCustomer(@PathVariable Long id, @RequestBody Customer customer){ customerService.saveCustomer(id, customer);}
+    public  void updateCustomer(@PathVariable Long id, @RequestBody CustomerDAO customerDAO){ customerService.saveCustomer(id, customerDAO);}
 
 
     @PutMapping({"/{id}/open_account"})
     @ResponseStatus(HttpStatus.OK)
-    public void openAccount(@PathVariable Long id, @RequestBody Account account){
-        account.setCustomer(customerService.getCustomerById(id));
-        customerService.getCustomerById(id).addAccount(account);
-        accountService.addAccount(account);
+    public void openAccount(@PathVariable Long id, @RequestBody AccountDTO accountDTO){
+        //stwórz i ustaw obiekt accountDAO
+        AccountDAO accountDAO = new AccountDAO();
+        accountDAO.setCustomerDAO(customerService.getCustomerById(id));
+        accountDAO.setDisplayName(accountDTO.getDisplayName());
+
+        //doddaj nowe konto do klienta
+        customerService.getCustomerById(id).addAccount(accountDAO);
+
+        //zapisz nowe konto w db
+        accountService.addAccount(accountDAO);
 
     }
 

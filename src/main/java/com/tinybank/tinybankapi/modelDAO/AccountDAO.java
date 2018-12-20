@@ -1,4 +1,4 @@
-package com.tinybank.tinybankapi.model;
+package com.tinybank.tinybankapi.modelDAO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "accounts")
-public class Account {
+public class AccountDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
@@ -15,17 +15,17 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonIgnoreProperties
-    private  Customer customer;
+    private CustomerDAO customerDAO;
 
     @Column(name="display_name")
     private  String displayName;
 
-    public Account() {
+    public AccountDAO() {
     }
 
-    public Account(Customer customer, String displayName) {
+    public AccountDAO(CustomerDAO customerDAO, String displayName) {
 
-        this.customer = customer;
+        this.customerDAO = customerDAO;
         this.displayName = displayName;
     }
 
@@ -33,8 +33,8 @@ public class Account {
         return id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public CustomerDAO getCustomerDAO() {
+        return customerDAO;
     }
 
     public String getDisplayName() {
@@ -45,8 +45,8 @@ public class Account {
         this.id = id;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerDAO(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
     }
 
     public void setDisplayName(String displayName) {

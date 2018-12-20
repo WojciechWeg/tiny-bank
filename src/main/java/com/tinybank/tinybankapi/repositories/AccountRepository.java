@@ -1,8 +1,7 @@
 package com.tinybank.tinybankapi.repositories;
 
-import com.tinybank.tinybankapi.model.Account;
+import com.tinybank.tinybankapi.modelDAO.AccountDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<AccountDAO, Long> {
 }

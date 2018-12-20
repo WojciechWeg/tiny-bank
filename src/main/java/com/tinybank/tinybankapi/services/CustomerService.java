@@ -1,22 +1,21 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.model.Account;
-import com.tinybank.tinybankapi.model.Customer;
+import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
+import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface CustomerService {
 
 
-    List<Customer> getAllCustomers();
+    List<CustomerDAO> getAllCustomers();
 
-    Customer getCustomerById(Long id);
+    CustomerDAO getCustomerById(Long id);
 
     void deleteCustomerById(Long id);
 
-    Customer createNewCustomer(Customer customer);
+    CustomerDAO createNewCustomer(CustomerDTO customerDTO);
 
-    Customer saveCustomer(Long id, Customer customer);
+    CustomerDAO saveCustomer(Long id, CustomerDAO customerDAO);
 
 }

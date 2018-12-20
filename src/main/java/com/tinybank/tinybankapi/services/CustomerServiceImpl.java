@@ -1,11 +1,11 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.model.Account;
-import com.tinybank.tinybankapi.model.Customer;
+import com.tinybank.tinybankapi.mapper.CustomerMapper;
+import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
+import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,14 +14,16 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
 
         this.customerRepository = customerRepository;
+        this.customerMapper = customerMapper;
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
+    public List<CustomerDAO> getAllCustomers() {
         return customerRepository
                 .findAll()
                 .stream()
@@ -30,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerById(Long id) {
+    public CustomerDAO getCustomerById(Long id) {
         return customerRepository
                 .findById(id)
                 .get();
@@ -42,13 +44,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer createNewCustomer(Customer customer) {
+    public CustomerDAO createNewCustomer(CustomerDTO customerDTO) {
 
-        return customerRepository.save(customer);
+        return customerRepository.save(customerMapper.customerDtoToCustomerDAO(customerDTO));
     }
 
     @Override
-    public Customer saveCustomer(Long id, Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDAO saveCustomer(Long id, CustomerDAO customerDAO) {
+        return customerRepository.save(customerDAO);
     }
 }

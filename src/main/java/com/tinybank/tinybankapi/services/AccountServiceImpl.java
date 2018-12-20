@@ -1,8 +1,7 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.model.Account;
+import com.tinybank.tinybankapi.modelDAO.AccountDAO;
 import com.tinybank.tinybankapi.repositories.AccountRepository;
-import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +16,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account addAccount(Account account) {
-        return accountRepository.save(account);
+    public AccountDAO addAccount(AccountDAO accountDAO) {
+        return accountRepository.save(accountDAO);
     }
 
     @Override
-    public List<Account> getAccountList() {
+    public List<AccountDAO> getAccountList() {
         return null;
     }
 }

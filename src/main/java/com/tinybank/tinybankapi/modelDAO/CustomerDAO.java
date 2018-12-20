@@ -1,4 +1,4 @@
-package com.tinybank.tinybankapi.model;
+package com.tinybank.tinybankapi.modelDAO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class CustomerDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +28,19 @@ public class Customer {
     @Column(name = "address")
     private  String address;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnoreProperties(value={ "customer" })
-    private  List<Account> accounts;
+    @OneToMany(mappedBy = "customerDAO")
+    @JsonIgnoreProperties(value={ "customerDAO" })
+    private  List<AccountDAO> accountDAOS;
 
-    public Customer() {
+    public CustomerDAO() {
     }
 
-    public Customer(String name, String surname, Date birthDate, String address, List<Account> accounts) {
+    public CustomerDAO(String name, String surname, Date birthDate, String address, List<AccountDAO> accountDAOS) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
         this.address = address;
-        this.accounts = new ArrayList<Account>(accounts);
+        this.accountDAOS = new ArrayList<AccountDAO>(accountDAOS);
     }
 
     public Long getId() {
@@ -63,8 +63,8 @@ public class Customer {
         return address;
     }
 
-    public List<Account> getAccounts() {
-        return new ArrayList<Account>(accounts);
+    public List<AccountDAO> getAccountDAOS() {
+        return new ArrayList<AccountDAO>(accountDAOS);
     }
 
     public void setId(Long id) {
@@ -87,9 +87,9 @@ public class Customer {
         this.address = address;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setAccountDAOS(List<AccountDAO> accountDAOS) {
+        this.accountDAOS = accountDAOS;
     }
 
-    public void addAccount(Account account) {this.accounts.add(account);}
+    public void addAccount(AccountDAO accountDAO) {this.accountDAOS.add(accountDAO);}
 }
