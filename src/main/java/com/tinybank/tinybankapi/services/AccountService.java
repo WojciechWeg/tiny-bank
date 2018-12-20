@@ -9,6 +9,4 @@ public interface AccountService {
 
     AccountDAO addAccount(AccountDAO accountDAO);
 
-    List<AccountDAO> getAccountList();
-
 }

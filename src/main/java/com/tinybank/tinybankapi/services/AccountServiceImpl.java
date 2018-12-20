@@ -20,8 +20,4 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(accountDAO);
     }
 
-    @Override
-    public List<AccountDAO> getAccountList() {
-        return null;
-    }
 }
