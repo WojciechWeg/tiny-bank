@@ -25,12 +25,13 @@ public class CustomerServiceImplTest {
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
     CustomerService customerService;
+    AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        customerService = new CustomerServiceImpl(customerRepository,customerMapper);
+        customerService = new CustomerServiceImpl(customerRepository, customerMapper, accountService);
     }
 
     @Test
@@ -49,7 +50,7 @@ public class CustomerServiceImplTest {
         customer2.setAddress("Poznań");
         customer2.setBirthDate(new Date());
 
-        when(customerRepository.findAll()).thenReturn(Arrays.asList(customer1,customer2));
+        when(customerRepository.findAll()).thenReturn(Arrays.asList(customer1, customer2));
 
         //when
         List<CustomerDAO> customerDAOS = customerService.getAllCustomers();
@@ -75,7 +76,7 @@ public class CustomerServiceImplTest {
         //then
 
         CustomerDAO customerDAO = customerService.getCustomerById(1L);
-        assertEquals(customerDAO,customer1);
+        assertEquals(customerDAO, customer1);
 
     }
 
@@ -108,7 +109,7 @@ public class CustomerServiceImplTest {
         when(customerRepository.save(any(CustomerDAO.class))).thenReturn(savedCustomer);
 
 
-        assertEquals(customer1.getName(),savedCustomer.getName());
+        assertEquals(customer1.getName(), savedCustomer.getName());
 
 
     }

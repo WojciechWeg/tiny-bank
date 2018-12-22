@@ -10,15 +10,15 @@ import javax.persistence.*;
 public class AccountDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonIgnoreProperties
     private CustomerDAO customerDAO;
 
-    @Column(name="display_name")
-    private  String displayName;
+    @Column(name = "display_name")
+    private String displayName;
 
     public AccountDAO() {
     }

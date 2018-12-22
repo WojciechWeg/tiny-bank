@@ -26,19 +26,18 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-
-        CustomerDAO customerDAO1 = new CustomerDAO("Jan","Kowalski", new Date(),"Marszalkowska",
+        CustomerDAO customerDAO1 = new CustomerDAO("Jan", "Kowalski", new Date(), "Marszalkowska",
                 new ArrayList<>());
 
         customerRepository.save(customerDAO1);
 
-        CustomerDAO customerDAO2 = new CustomerDAO("Maria","Kowalska", new Date(),"Marszalkowska",
+        CustomerDAO customerDAO2 = new CustomerDAO("Maria", "Kowalska", new Date(), "Marszalkowska",
                 new ArrayList<>());
 
         customerRepository.save(customerDAO2);
 
-        AccountDAO accountDAO1 = new AccountDAO(customerDAO1,"KontoOszczednosciowe");
-        AccountDAO accountDAO2 = new AccountDAO(customerDAO1,"KontoInwestycyjne");
+        AccountDAO accountDAO1 = new AccountDAO(customerDAO1, "KontoOszczednosciowe");
+        AccountDAO accountDAO2 = new AccountDAO(customerDAO1, "KontoInwestycyjne");
 
         accountRepository.save(accountDAO2);
         accountRepository.save(accountDAO1);

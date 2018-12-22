@@ -5,13 +5,13 @@ import java.util.List;
 
 public class CustomerDTO {
 
-    private  String name;
+    private String name;
 
-    private  String surname;
+    private String surname;
 
     private Date birthDate;
 
-    private  String address;
+    private String address;
 
 
     public CustomerDTO() {

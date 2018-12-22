@@ -1,6 +1,7 @@
 package com.tinybank.tinybankapi.services;
 
 import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
+import com.tinybank.tinybankapi.modelDTO.AccountDTO;
 import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
 
 import java.util.List;
@@ -16,6 +17,5 @@ public interface CustomerService {
 
     CustomerDAO createNewCustomer(CustomerDTO customerDTO);
 
-    CustomerDAO saveCustomer(Long id, CustomerDAO customerDAO);
-
+    void openAccount(Long id, AccountDTO accountDTO);
 }

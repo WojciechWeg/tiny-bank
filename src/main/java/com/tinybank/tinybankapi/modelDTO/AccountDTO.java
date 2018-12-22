@@ -3,12 +3,12 @@ package com.tinybank.tinybankapi.modelDTO;
 public class AccountDTO {
 
 
-    private  String displayName;
+    private String displayName;
 
     public AccountDTO() {
     }
 
-    public AccountDTO( String displayName) {
+    public AccountDTO(String displayName) {
         this.displayName = displayName;
     }
 

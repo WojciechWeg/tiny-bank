@@ -33,7 +33,7 @@ public class AccountServiceImplTest {
     public void addAccount() {
 
         //given
-        List<AccountDAO>  accountDAOS =  Arrays.asList(new AccountDAO(), new AccountDAO(), new AccountDAO());
+        List<AccountDAO> accountDAOS = Arrays.asList(new AccountDAO(), new AccountDAO(), new AccountDAO());
 
         //when
         when(accountRepository.findAll()).thenReturn(accountDAOS);

@@ -16,54 +16,42 @@ import java.util.List;
 @RequestMapping(CustomerController.BASE_URL)
 public class CustomerController {
 
-    public static final  String BASE_URL = "api/customers";
+    public static final String BASE_URL = "api/customers";
 
     private final CustomerService customerService;
-    private final AccountService accountService;
 
-    public CustomerController(CustomerService customerService, AccountService accountService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-        this.accountService = accountService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerDAO> getListOfCustomers(){
-       return customerService.getAllCustomers();
+    public List<CustomerDAO> getListOfCustomers() {
+        return customerService.getAllCustomers();
     }
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public CustomerDAO getCustomer(@PathVariable Long id) {return  customerService.getCustomerById(id);}
+    public CustomerDAO getCustomer(@PathVariable Long id) {
+        return customerService.getCustomerById(id);
+    }
 
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public void  deleteCustomer(@PathVariable Long id) { customerService.deleteCustomerById(id);}
+    public void deleteCustomer(@PathVariable Long id) {
+        customerService.deleteCustomerById(id);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewCustomer(@RequestBody CustomerDTO customerDTO) {customerService.createNewCustomer(customerDTO);}
-
-
-    @PutMapping({"/{id}"})
-    @ResponseStatus(HttpStatus.OK)
-    public  void updateCustomer(@PathVariable Long id, @RequestBody CustomerDAO customerDAO){ customerService.saveCustomer(id, customerDAO);}
-
+    public void createNewCustomer(@RequestBody CustomerDTO customerDTO) {
+        customerService.createNewCustomer(customerDTO);
+    }
 
     @PutMapping({"/{id}/open_account"})
     @ResponseStatus(HttpStatus.OK)
-    public void openAccount(@PathVariable Long id, @RequestBody AccountDTO accountDTO){
-        //stwórz i ustaw obiekt accountDAO
-        AccountDAO accountDAO = new AccountDAO();
-        accountDAO.setCustomerDAO(customerService.getCustomerById(id));
-        accountDAO.setDisplayName(accountDTO.getDisplayName());
-
-        //doddaj nowe konto do klienta
-        customerService.getCustomerById(id).addAccount(accountDAO);
-
-        //zapisz nowe konto w db
-        accountService.addAccount(accountDAO);
-
+    public void openAccount(@PathVariable Long id, @RequestBody AccountDTO accountDTO) {
+        customerService.openAccount(id, accountDTO);
     }
 
 }

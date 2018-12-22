@@ -28,7 +28,7 @@ public class CustomerMapperTest {
 
         //then
 
-        assertEquals(customerTEST.getName(),customerDTO.getName());
+        assertEquals(customerTEST.getName(), customerDTO.getName());
         assertEquals(customerTEST.getSurname(), customerDTO.getSurname());
         assertEquals(customerTEST.getAddress(), customerDTO.getAddress());
         assertEquals(customerTEST.getBirthDate(), customerDTO.getBirthDate());
@@ -49,7 +49,7 @@ public class CustomerMapperTest {
         CustomerDAO customerDAO = customerMapper.customerDtoToCustomerDAO(customerTEST);
 
         //then
-        assertEquals(customerTEST.getName(),customerDAO.getName());
+        assertEquals(customerTEST.getName(), customerDAO.getName());
         assertEquals(customerTEST.getSurname(), customerDAO.getSurname());
         assertEquals(customerTEST.getAddress(), customerDAO.getAddress());
         assertEquals(customerTEST.getBirthDate(), customerDAO.getBirthDate());

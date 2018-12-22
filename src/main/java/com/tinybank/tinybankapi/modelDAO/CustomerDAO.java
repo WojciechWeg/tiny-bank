@@ -14,23 +14,23 @@ public class CustomerDAO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
 
     @Column(name = "name")
-    private  String name;
+    private String name;
 
-    @Column(name= "surname")
-    private  String surname;
+    @Column(name = "surname")
+    private String surname;
 
     @Column(name = "birth_date")
-    private  Date birthDate;
+    private Date birthDate;
 
     @Column(name = "address")
-    private  String address;
+    private String address;
 
     @OneToMany(mappedBy = "customerDAO")
-    @JsonIgnoreProperties(value={ "customerDAO" })
-    private  List<AccountDAO> accountDAOS;
+    @JsonIgnoreProperties(value = {"customerDAO"})
+    private List<AccountDAO> accountDAOS;
 
     public CustomerDAO() {
     }
@@ -91,5 +91,7 @@ public class CustomerDAO {
         this.accountDAOS = accountDAOS;
     }
 
-    public void addAccount(AccountDAO accountDAO) {this.accountDAOS.add(accountDAO);}
+    public void addAccount(AccountDAO accountDAO) {
+        this.accountDAOS.add(accountDAO);
+    }
 }
