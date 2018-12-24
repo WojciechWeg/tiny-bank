@@ -1,11 +1,6 @@
-package com.tinybank.tinybankapi.controllers;
+package com.tinybank.tinybankapi.customer;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.AccountDTO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
-import com.tinybank.tinybankapi.services.AccountService;
-import com.tinybank.tinybankapi.services.CustomerService;
+import com.tinybank.tinybankapi.account.AccountDTO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

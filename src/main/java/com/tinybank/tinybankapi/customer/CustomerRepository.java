@@ -1,6 +1,5 @@
-package com.tinybank.tinybankapi.repositories;
+package com.tinybank.tinybankapi.customer;
 
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<CustomerDAO,Long> {

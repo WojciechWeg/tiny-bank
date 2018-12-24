@@ -1,9 +1,8 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.mapper.CustomerMapper;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
-import com.tinybank.tinybankapi.repositories.CustomerRepository;
+import com.tinybank.tinybankapi.account.AccountService;
+import com.tinybank.tinybankapi.customer.*;
+import com.tinybank.tinybankapi.customer.CustomerMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

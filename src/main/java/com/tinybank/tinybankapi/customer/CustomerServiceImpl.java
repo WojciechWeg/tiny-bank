@@ -1,15 +1,12 @@
-package com.tinybank.tinybankapi.services;
+package com.tinybank.tinybankapi.customer;
 
-import com.tinybank.tinybankapi.mapper.CustomerMapper;
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.AccountDTO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
-import com.tinybank.tinybankapi.repositories.CustomerRepository;
+import com.tinybank.tinybankapi.account.AccountService;
+import com.tinybank.tinybankapi.account.AccountDAO;
+import com.tinybank.tinybankapi.account.AccountDTO;
+import com.tinybank.tinybankapi.services.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {

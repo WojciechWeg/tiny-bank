@@ -1,4 +1,4 @@
-package com.tinybank.tinybankapi.modelDTO;
+package com.tinybank.tinybankapi.customer;
 
 import java.util.Date;
 import java.util.List;

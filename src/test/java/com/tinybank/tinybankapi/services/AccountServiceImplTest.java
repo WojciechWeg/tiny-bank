@@ -1,7 +1,9 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.repositories.AccountRepository;
+import com.tinybank.tinybankapi.account.AccountDAO;
+import com.tinybank.tinybankapi.account.AccountRepository;
+import com.tinybank.tinybankapi.account.AccountService;
+import com.tinybank.tinybankapi.account.AccountServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -1,7 +1,5 @@
-package com.tinybank.tinybankapi.mapper;
+package com.tinybank.tinybankapi.customer;
 
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

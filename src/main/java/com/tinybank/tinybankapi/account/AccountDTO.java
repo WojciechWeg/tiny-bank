@@ -1,4 +1,4 @@
-package com.tinybank.tinybankapi.modelDTO;
+package com.tinybank.tinybankapi.account;
 
 public class AccountDTO {
 

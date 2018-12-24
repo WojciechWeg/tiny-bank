@@ -1,9 +1,9 @@
 package com.tinybank.tinybankapi.bootstrap;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.repositories.AccountRepository;
-import com.tinybank.tinybankapi.repositories.CustomerRepository;
+import com.tinybank.tinybankapi.account.AccountDAO;
+import com.tinybank.tinybankapi.customer.CustomerDAO;
+import com.tinybank.tinybankapi.account.AccountRepository;
+import com.tinybank.tinybankapi.customer.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,8 @@
 package com.tinybank.tinybankapi.mapper;
 
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
+import com.tinybank.tinybankapi.customer.CustomerDAO;
+import com.tinybank.tinybankapi.customer.CustomerDTO;
+import com.tinybank.tinybankapi.customer.CustomerMapper;
 import org.junit.Test;
 
 import java.util.Date;

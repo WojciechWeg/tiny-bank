@@ -1,6 +1,7 @@
-package com.tinybank.tinybankapi.modelDAO;
+package com.tinybank.tinybankapi.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.tinybank.tinybankapi.account.AccountDAO;
 
 import javax.persistence.*;
 import java.util.ArrayList;

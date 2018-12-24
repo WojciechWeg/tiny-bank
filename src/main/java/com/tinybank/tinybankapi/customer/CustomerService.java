@@ -1,8 +1,6 @@
-package com.tinybank.tinybankapi.services;
+package com.tinybank.tinybankapi.customer;
 
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.AccountDTO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
+import com.tinybank.tinybankapi.account.AccountDTO;
 
 import java.util.List;
 

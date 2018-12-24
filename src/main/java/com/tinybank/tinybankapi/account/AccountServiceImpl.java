@@ -1,10 +1,6 @@
-package com.tinybank.tinybankapi.services;
+package com.tinybank.tinybankapi.account;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
