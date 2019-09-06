@@ -8,6 +8,7 @@ import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDAO createNewCustomer(CustomerDTO customerDTO) {
-        return customerRepository.save(customerMapper.customerDtoToCustomerDAO(customerDTO));
+        CustomerDAO customerToBeSave = customerMapper.customerDtoToCustomerDAO(customerDTO);
+        customerToBeSave.setAccountDAOS(new LinkedList<>());
+        return customerRepository.save(customerToBeSave);
     }
 
     @Override

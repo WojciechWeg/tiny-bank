@@ -1,15 +1,21 @@
 package com.tinybank.tinybankapi.controllers;
 
+import com.tinybank.tinybankapi.mapper.CustomerMapper;
+
 import com.tinybank.tinybankapi.modelDAO.AccountDAO;
 import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
 import com.tinybank.tinybankapi.modelDTO.AccountDTO;
 import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
+import com.tinybank.tinybankapi.modelDTO.CustomerResource;
 import com.tinybank.tinybankapi.services.AccountService;
 import com.tinybank.tinybankapi.services.CustomerService;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -44,8 +50,16 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewCustomer(@RequestBody CustomerDTO customerDTO) {
-        customerService.createNewCustomer(customerDTO);
+    public ResponseEntity<CustomerResource> createNewCustomer(@RequestBody CustomerDTO customerDTO) {
+
+
+        CustomerDAO customerDAO = customerService.createNewCustomer(customerDTO);
+        URI uri = MvcUriComponentsBuilder.fromController(getClass())
+                .path("/{id}")
+                .buildAndExpand(customerDAO.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(new CustomerResource(customerDAO));
     }
 
     @PutMapping({"/{id}/open_account"})
