@@ -1,8 +1,7 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.mapper.CustomerMapper;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
+
+import com.tinybank.tinybankapi.model.Customer;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +21,6 @@ public class CustomerServiceImplTest {
     @Mock
     CustomerRepository customerRepository;
 
-    CustomerMapper customerMapper = CustomerMapper.INSTANCE;
-
     CustomerService customerService;
     AccountService accountService;
 
@@ -31,20 +28,20 @@ public class CustomerServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        customerService = new CustomerServiceImpl(customerRepository, customerMapper, accountService);
+        customerService = new CustomerServiceImpl(customerRepository, accountService);
     }
 
     @Test
     public void getAllCustomers() {
 
         //given
-        CustomerDAO customer1 = new CustomerDAO();
+        Customer customer1 = new Customer();
         customer1.setName("Adam");
         customer1.setSurname("Szef");
         customer1.setAddress("Łódź");
         customer1.setBirthDate(new Date());
 
-        CustomerDAO customer2 = new CustomerDAO();
+        Customer customer2 = new Customer();
         customer2.setName("Krzysiek");
         customer2.setSurname("Vice-Szef");
         customer2.setAddress("Poznań");
@@ -53,10 +50,10 @@ public class CustomerServiceImplTest {
         when(customerRepository.findAll()).thenReturn(Arrays.asList(customer1, customer2));
 
         //when
-        List<CustomerDAO> customerDAOS = customerService.getAllCustomers();
+        List<Customer> customers = customerService.getAllCustomers();
 
         //then
-        assertEquals(2, customerDAOS.size());
+        assertEquals(2, customers.size());
     }
 
     @Test
@@ -64,7 +61,7 @@ public class CustomerServiceImplTest {
 
 
         //given
-        CustomerDAO customer1 = new CustomerDAO();
+        Customer customer1 = new Customer();
         customer1.setId(1L);
         customer1.setName("Jan");
         customer1.setSurname("Nieogar");
@@ -75,8 +72,8 @@ public class CustomerServiceImplTest {
 
         //then
 
-        CustomerDAO customerDAO = customerService.getCustomerById(1L);
-        assertEquals(customerDAO, customer1);
+        Customer customer = customerService.getCustomerById(1L);
+        assertEquals(customer, customer1);
 
     }
 
@@ -93,20 +90,20 @@ public class CustomerServiceImplTest {
     @Test
     public void createNewCustomer() {
 
-        CustomerDTO customer1 = new CustomerDTO();
+        Customer customer1 = new Customer();
         customer1.setName("Johny");
         customer1.setSurname("Bravo");
         customer1.setAddress("Hollywood");
         customer1.setBirthDate(new Date());
 
-        CustomerDAO savedCustomer = new CustomerDAO();
+        Customer savedCustomer = new Customer();
         savedCustomer.setName(customer1.getName());
         savedCustomer.setSurname(customer1.getSurname());
         savedCustomer.setAddress(customer1.getAddress());
         savedCustomer.setBirthDate(customer1.getBirthDate());
         savedCustomer.setId(1L);
 
-        when(customerRepository.save(any(CustomerDAO.class))).thenReturn(savedCustomer);
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
 
 
         assertEquals(customer1.getName(), savedCustomer.getName());
@@ -118,18 +115,18 @@ public class CustomerServiceImplTest {
     public void saveCustomer() {
 
         //given
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setName("Jim");
+        Customer Customer = new Customer();
+        Customer.setName("Jim");
 
-        CustomerDAO savedCustomer = new CustomerDAO();
-        savedCustomer.setName(customerDTO.getName());
-        savedCustomer.setSurname(customerDTO.getSurname());
+        Customer savedCustomer = new Customer();
+        savedCustomer.setName(Customer.getName());
+        savedCustomer.setSurname(Customer.getSurname());
         savedCustomer.setId(1l);
 
-        when(customerRepository.save(any(CustomerDAO.class))).thenReturn(savedCustomer);
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
 
         //then
-        assertEquals(customerDTO.getName(), savedCustomer.getName());
+        assertEquals(Customer.getName(), savedCustomer.getName());
 
     }
 }

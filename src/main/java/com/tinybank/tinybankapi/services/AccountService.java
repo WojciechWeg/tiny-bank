@@ -1,12 +1,10 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-
-import java.util.List;
+import com.tinybank.tinybankapi.model.Account;
 
 
 public interface AccountService {
 
-    AccountDAO addAccount(AccountDAO accountDAO);
+    Account addAccount(Account account);
 
 }

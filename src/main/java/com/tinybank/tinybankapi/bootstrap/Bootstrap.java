@@ -1,7 +1,7 @@
 package com.tinybank.tinybankapi.bootstrap;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
+import com.tinybank.tinybankapi.model.Account;
+import com.tinybank.tinybankapi.model.Customer;
 import com.tinybank.tinybankapi.repositories.AccountRepository;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -26,27 +26,27 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-        CustomerDAO customerDAO1 = new CustomerDAO("Jan", "Kowalski", new Date(), "Marszalkowska",
+        Customer customer1 = new Customer("Jan", "Kowalski", new Date(), "Marszalkowska",
                 new ArrayList<>());
 
-        customerRepository.save(customerDAO1);
+        customerRepository.save(customer1);
 
-        CustomerDAO customerDAO2 = new CustomerDAO("Maria", "Kowalska", new Date(), "Marszalkowska",
+        Customer customer2 = new Customer("Maria", "Kowalska", new Date(), "Marszalkowska",
                 new ArrayList<>());
 
-        customerRepository.save(customerDAO2);
+        customerRepository.save(customer2);
 
-        AccountDAO accountDAO1 = new AccountDAO(customerDAO1, "KontoOszczednosciowe");
-        AccountDAO accountDAO2 = new AccountDAO(customerDAO1, "KontoInwestycyjne");
+        Account account1 = new Account(customer1, "KontoOszczednosciowe");
+        Account account2 = new Account(customer1, "KontoInwestycyjne");
 
-        accountRepository.save(accountDAO2);
-        accountRepository.save(accountDAO1);
+        accountRepository.save(account2);
+        accountRepository.save(account1);
 
-        List<AccountDAO> accountsOfCustomer1 = new ArrayList<>();
-        accountsOfCustomer1.add(accountDAO1);
-        accountsOfCustomer1.add(accountDAO2);
+        List<Account> accountsOfCustomer1 = new ArrayList<>();
+        accountsOfCustomer1.add(account1);
+        accountsOfCustomer1.add(account2);
 
-        customerDAO1.setAccountDAOS(accountsOfCustomer1);
+        customer1.setAccounts(accountsOfCustomer1);
 
         System.out.println("Customers loaded.");
     }

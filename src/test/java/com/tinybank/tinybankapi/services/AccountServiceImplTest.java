@@ -1,6 +1,6 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
+import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.repositories.AccountRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,14 +33,14 @@ public class AccountServiceImplTest {
     public void addAccount() {
 
         //given
-        List<AccountDAO> accountDAOS = Arrays.asList(new AccountDAO(), new AccountDAO(), new AccountDAO());
+        List<Account> accounts = Arrays.asList(new Account(), new Account(), new Account());
 
         //when
-        when(accountRepository.findAll()).thenReturn(accountDAOS);
+        when(accountRepository.findAll()).thenReturn(accounts);
 
         //then
 
-        assertEquals(3, accountDAOS.size());
+        assertEquals(3, accounts.size());
 
 
     }

@@ -1,5 +1,6 @@
-package com.tinybank.tinybankapi.modelDAO;
+package com.tinybank.tinybankapi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -11,10 +12,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "customers")
-public class CustomerDAO {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "name")
@@ -24,24 +26,25 @@ public class CustomerDAO {
     private String surname;
 
     @Column(name = "birth_date")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date birthDate;
 
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "customerDAO")
-    @JsonIgnoreProperties(value = {"customerDAO"})
-    private List<AccountDAO> accountDAOS;
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnoreProperties(value = {"customer"})
+    private List<Account> accounts;
 
-    public CustomerDAO() {
+    public Customer() {
     }
 
-    public CustomerDAO(String name, String surname, Date birthDate, String address, List<AccountDAO> accountDAOS) {
+    public Customer(String name, String surname, Date birthDate, String address, List<Account> accounts) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
         this.address = address;
-        this.accountDAOS = new ArrayList<AccountDAO>(accountDAOS);
+        this.accounts = new ArrayList<Account>(accounts);
     }
 
     public Long getId() {
@@ -64,8 +67,8 @@ public class CustomerDAO {
         return address;
     }
 
-    public List<AccountDAO> getAccountDAOS() {
-        return new ArrayList<AccountDAO>(accountDAOS);
+    public List<Account> getAccounts() {
+        return new ArrayList<Account>(accounts);
     }
 
     public void setId(Long id) {
@@ -88,11 +91,11 @@ public class CustomerDAO {
         this.address = address;
     }
 
-    public void setAccountDAOS(List<AccountDAO> accountDAOS) {
-        this.accountDAOS = accountDAOS;
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
-    public void addAccount(AccountDAO accountDAO) {
-        this.accountDAOS.add(accountDAO);
+    public void addAccount(Account account) {
+        this.accounts.add(account);
     }
 }

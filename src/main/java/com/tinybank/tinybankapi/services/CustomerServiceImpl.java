@@ -1,40 +1,34 @@
 package com.tinybank.tinybankapi.services;
 
-import com.tinybank.tinybankapi.mapper.CustomerMapper;
-import com.tinybank.tinybankapi.modelDAO.AccountDAO;
-import com.tinybank.tinybankapi.modelDAO.CustomerDAO;
-import com.tinybank.tinybankapi.modelDTO.AccountDTO;
-import com.tinybank.tinybankapi.modelDTO.CustomerDTO;
+import com.tinybank.tinybankapi.model.Account;
+import com.tinybank.tinybankapi.model.Customer;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
 
     private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper;
     private final AccountService accountService;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper, AccountService accountService) {
+    public CustomerServiceImpl(CustomerRepository customerRepository,  AccountService accountService) {
 
         this.customerRepository = customerRepository;
-        this.customerMapper = customerMapper;
         this.accountService = accountService;
     }
 
     @Override
-    public List<CustomerDAO> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerRepository
                 .findAll();
     }
 
     @Override
-    public CustomerDAO getCustomerById(Long id) {
+    public Customer getCustomerById(Long id) {
         return customerRepository
                 .findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
@@ -46,23 +40,22 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDAO createNewCustomer(CustomerDTO customerDTO) {
-        CustomerDAO customerToBeSave = customerMapper.customerDtoToCustomerDAO(customerDTO);
-        customerToBeSave.setAccountDAOS(new LinkedList<>());
-        return customerRepository.save(customerToBeSave);
+    public Customer createNewCustomer(Customer customer) {
+        customer.setAccounts(new LinkedList<>());
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void openAccount(Long id, AccountDTO accountDTO) {
-        //stwórz i ustaw obiekt accountDAO
-        AccountDAO accountDAO = new AccountDAO();
-        accountDAO.setCustomerDAO(getCustomerById(id));
-        accountDAO.setDisplayName(accountDTO.getDisplayName());
+    public void openAccount(Long id, Account Account) {
+        //stwórz i ustaw obiekt Account
+        Account account = new Account();
+        account.setCustomer(getCustomerById(id));
+        account.setDisplayName(Account.getDisplayName());
 
         //doddaj nowe konto do klienta
-        getCustomerById(id).addAccount(accountDAO);
+        getCustomerById(id).addAccount(account);
 
         //zapisz nowe konto w db
-        accountService.addAccount(accountDAO);
+        accountService.addAccount(account);
     }
 }
