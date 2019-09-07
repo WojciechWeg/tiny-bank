@@ -10,10 +10,14 @@ import com.tinybank.tinybankapi.modelDTO.CustomerResource;
 import com.tinybank.tinybankapi.services.AccountService;
 import com.tinybank.tinybankapi.services.CustomerService;
 
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -32,8 +36,11 @@ public class CustomerController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerDAO> getListOfCustomers() {
-        return customerService.getAllCustomers();
+    public ResponseEntity<Resources<List<CustomerDAO>>> getListOfCustomers() {
+        Resources<List<CustomerDAO>> resources = new Resources(customerService.getAllCustomers());
+        String uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUriString();
+        resources.add(new Link(uri,"self"));
+        return ResponseEntity.ok(resources);
     }
 
     @GetMapping({"/{id}"})
