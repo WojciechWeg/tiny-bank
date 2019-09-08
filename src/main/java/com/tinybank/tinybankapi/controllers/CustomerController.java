@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<CustomerResource> createNewCustomer(@RequestBody Customer Customer) {
+    public ResponseEntity<CustomerResource> createNewCustomer(@RequestBody @Valid Customer Customer) {
+
+
 
 
         Customer customer = customerService.createNewCustomer(Customer);

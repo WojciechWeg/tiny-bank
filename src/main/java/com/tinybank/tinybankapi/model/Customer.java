@@ -5,11 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -20,16 +19,20 @@ public class Customer {
     private Long id;
 
     @Column(name = "name")
+    @NotNull(message = "Name must not be null")
     private String name;
 
     @Column(name = "surname")
+    @NotNull(message = "Surname must not be null")
     private String surname;
 
     @Column(name = "birth_date")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @NotNull(message = "Birth date must not be null")
     private Date birthDate;
 
     @Column(name = "address")
+    @NotNull(message = "Address must not be null")
     private String address;
 
     @OneToMany(mappedBy = "customer")

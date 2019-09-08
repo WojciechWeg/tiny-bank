@@ -1,5 +1,6 @@
 package com.tinybank.tinybankapi.services;
 
+import com.tinybank.tinybankapi.error_handling.ResourceNotFoundException;
 import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.model.Customer;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;

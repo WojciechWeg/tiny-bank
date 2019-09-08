@@ -1,4 +1,4 @@
-package com.tinybank.tinybankapi.services;
+package com.tinybank.tinybankapi.error_handling;
 
 
 public class ResourceNotFoundException extends RuntimeException {

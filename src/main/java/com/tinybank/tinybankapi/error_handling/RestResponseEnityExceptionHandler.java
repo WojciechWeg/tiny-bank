@@ -1,8 +1,6 @@
-package com.tinybank.tinybankapi.controllers;
+package com.tinybank.tinybankapi.error_handling;
 
 
-import com.tinybank.tinybankapi.model.ErrorResponse;
-import com.tinybank.tinybankapi.services.ResourceNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
