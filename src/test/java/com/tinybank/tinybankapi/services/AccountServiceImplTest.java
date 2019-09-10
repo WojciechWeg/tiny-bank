@@ -2,6 +2,8 @@ package com.tinybank.tinybankapi.services;
 
 import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.repositories.AccountRepository;
+
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,7 +12,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class AccountServiceImplTest {
@@ -20,7 +23,7 @@ public class AccountServiceImplTest {
     @Mock
     AccountRepository accountRepository;
 
-    @Before
+    @Before()
     public void setUp() throws Exception {
 
         MockitoAnnotations.initMocks(this);
