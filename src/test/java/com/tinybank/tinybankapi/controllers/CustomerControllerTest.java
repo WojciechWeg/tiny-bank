@@ -1,6 +1,8 @@
 package com.tinybank.tinybankapi.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.model.Customer;
 
@@ -22,9 +24,8 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,7 +40,7 @@ public class CustomerControllerTest {
     private CustomerController customerController;
 
     Customer customer,customer2,customer3;
-    Account account;
+    Account account,account2;
     List<Account> accountList;
     List<Customer> customerList;
 
@@ -67,6 +68,9 @@ public class CustomerControllerTest {
         customer3 = new Customer("Marian","Bela",new Date(),"Lodzka",new ArrayList<>());
         customer3.setId(4L);
 
+        account2 = new Account();
+        account2.setDisplayName("Inwestycyjne");
+
     }
 
     @Test
@@ -93,9 +97,11 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void deleteCustomer() {
+    public void deleteCustomer() throws Exception{
 
 
+        mockMvc.perform(delete("/api/customers/1"))
+                .andExpect(status().isOk());
 
     }
 
@@ -113,7 +119,19 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void openAccount() {
+    public void openAccount() throws Exception {
+
+        String json = "{ \"displayName\": \"Osczednosciowe\"}";
+
+        when(customerService.openAccount(any(),any())).thenReturn(account2);
+
+        mockMvc.perform(
+                put("/api/customers/2/open_account")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk());
+
+
     }
 
     public static String asJsonString(final Object obj) {
