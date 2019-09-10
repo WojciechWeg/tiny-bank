@@ -29,7 +29,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping( produces = "application/json; charset=UTF-8")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Resources<List<Customer>>> getListOfCustomers() {
         Resources<List<Customer>> resources = new Resources(customerService.getAllCustomers());
@@ -53,9 +53,6 @@ public class CustomerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CustomerResource> createNewCustomer(@RequestBody @Valid Customer Customer) {
-
-
-
 
         Customer customer = customerService.createNewCustomer(Customer);
         URI uri = MvcUriComponentsBuilder.fromController(getClass())
