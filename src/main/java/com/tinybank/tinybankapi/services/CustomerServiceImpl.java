@@ -4,6 +4,7 @@ import com.tinybank.tinybankapi.error_handling.ResourceNotFoundException;
 import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.model.Customer;
 import com.tinybank.tinybankapi.repositories.CustomerRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -37,7 +38,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomerById(Long id) {
-        customerRepository.deleteById(id);
+        try {
+        customerRepository.deleteById(id);}
+        catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException();
+        }
     }
 
     @Override
@@ -47,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void openAccount(Long id, Account Account) {
+    public Account openAccount(Long id, Account Account) {
         //stwórz i ustaw obiekt Account
         Account account = new Account();
         account.setCustomer(getCustomerById(id));
@@ -58,5 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         //zapisz nowe konto w db
         accountService.addAccount(account);
+
+        return account;
     }
 }

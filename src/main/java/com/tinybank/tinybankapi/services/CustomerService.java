@@ -16,5 +16,5 @@ public interface CustomerService {
 
     Customer createNewCustomer(Customer Customer);
 
-    void openAccount(Long id, Account Account);
+    Account openAccount(Long id, Account Account);
 }

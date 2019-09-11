@@ -3,9 +3,12 @@ package com.tinybank.tinybankapi.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.tinybank.tinybankapi.error_handling.ResourceNotFoundException;
+import com.tinybank.tinybankapi.error_handling.RestResponseEnityExceptionHandler;
 import com.tinybank.tinybankapi.model.Account;
 import com.tinybank.tinybankapi.model.Customer;
 
+import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import com.tinybank.tinybankapi.services.CustomerService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -93,12 +96,21 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.surname",Matchers.is(customer.getSurname())))
                 .andExpect(jsonPath("$.address",Matchers.is(customer.getAddress())))
                 .andExpect(jsonPath("$.accounts[0].displayName",Matchers.is(account.getDisplayName())));
+    }
+
+    @Test()
+    public void getCustomerThatDoesNotExist() throws Exception{
+
+            when(customerService.getCustomerById(any())).thenThrow(ResourceNotFoundException.class);
+
+            mockMvc.perform(get("api/customers/11"))
+                    .andExpect(status().isNotFound());
+
 
     }
 
     @Test
     public void deleteCustomer() throws Exception{
-
 
         mockMvc.perform(delete("/api/customers/1"))
                 .andExpect(status().isOk());
