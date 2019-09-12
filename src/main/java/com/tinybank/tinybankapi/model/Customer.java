@@ -35,7 +35,7 @@ public class Customer {
     @NotNull(message = "Address must not be null")
     private String address;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties(value = {"customer"})
     private List<Account> accounts;
 
