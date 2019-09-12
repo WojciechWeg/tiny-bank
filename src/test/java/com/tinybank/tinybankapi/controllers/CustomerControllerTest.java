@@ -113,7 +113,7 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.surname",Matchers.is(customer.getSurname())))
                 .andExpect(jsonPath("$.address",Matchers.is(customer.getAddress())))
                 .andExpect(jsonPath("$.accounts[0].displayName",Matchers.is(account.getDisplayName())))
-                .andDo(document("/api/customers/id-get",
+                .andDo(document("/api/customers-get",
                         pathParameters(
                                 parameterWithName("id").description("Customers id")
                         ),
@@ -141,8 +141,13 @@ public class CustomerControllerTest {
     @Test
     public void deleteCustomer() throws Exception{
 
-        mockMvc.perform(delete("/api/customers/1"))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("/api/customers/{id}",1))
+                .andExpect(status().isOk())
+                .andDo(document("api/customer-delete",
+                        pathParameters(
+                                parameterWithName("id").description("Customers id to be deleted")
+                        )
+                ));
 
     }
 

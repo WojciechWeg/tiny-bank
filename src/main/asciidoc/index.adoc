@@ -6,27 +6,31 @@ Wojciech Węgierek;
 
 
 
-GET BEER
+== GET CUSTOMER
 
 One showing how to make a request using cURL:
 
-include::{snippets}\api\customers\id-get\curl-request.adoc[]
+include::{snippets}\api\customers-get\curl-request.adoc[]
+
+Path parameters:
+
+include::{snippets}\api\customers-get\path-parameters.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}\api\customers\id-get\http-request.adoc[]
+include::{snippets}\api\customers-get\http-request.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}\api\customers\id-get\http-response.adoc[]
+include::{snippets}\api\customers-get\http-response.adoc[]
 
 Response Body:
-include::{snippets}\api\customers\id-get\response-body.adoc[]
+include::{snippets}\api\customers-get\response-body.adoc[]
 
 Response Fields:
-include::{snippets}\api\customers\id-get\response-fields.adoc[]
+include::{snippets}\api\customers-get\response-fields.adoc[]
 
-NEW CUSTOMER
+== CREATE CUSTOMER
 
 One showing how to make a request using cURL:
 
@@ -45,3 +49,26 @@ include::{snippets}\api\customers-new\response-body.adoc[]
 
 Request Fields
 include::{snippets}\api\customers-new\request-fields.adoc[]
+
+
+== DELETE CUSTOMER
+You are deleting all his accounts too.
+
+One showing how to make a request using cURL:
+
+include::{snippets}\api\customer-delete\curl-request.adoc[]
+
+Path parameters:
+
+include::{snippets}\api\customer-delete\path-parameters.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/\api\customer-delete\http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}\api\customer-delete\http-response.adoc[]
+
+Response Body:
+include::{snippets}\api\customer-delete\response-body.adoc[]
