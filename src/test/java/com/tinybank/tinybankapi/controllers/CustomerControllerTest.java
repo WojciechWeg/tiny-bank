@@ -12,14 +12,20 @@ import com.tinybank.tinybankapi.repositories.CustomerRepository;
 import com.tinybank.tinybankapi.services.CustomerService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.restdocs.constraints.ConstraintDescriptions;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,9 +34,16 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+@AutoConfigureRestDocs()
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CustomerControllerTest {
 
@@ -47,10 +60,14 @@ public class CustomerControllerTest {
     List<Account> accountList;
     List<Customer> customerList;
 
+    @Rule
+    public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
+
     @Before
     public void setUp() throws Exception {
 
         mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+                .apply(documentationConfiguration(this.restDocumentation))
                 .build();
 
         customer = new Customer("Jan","Kowalski",new Date(),"Marszalkowska",new ArrayList<>());
@@ -68,7 +85,7 @@ public class CustomerControllerTest {
         customerList.add(customer);
         customerList.add(customer2);
 
-        customer3 = new Customer("Marian","Bela",new Date(),"Lodzka",new ArrayList<>());
+        customer3 = new Customer("Marian","Bela",new Date(),"Lodzka");
         customer3.setId(4L);
 
         account2 = new Account();
@@ -90,12 +107,25 @@ public class CustomerControllerTest {
     public void getCustomer() throws  Exception {
         when(customerService.getCustomerById(any())).thenReturn(customer);
 
-        mockMvc.perform(get("/api/customers/1"))
+        mockMvc.perform(get("/api/customers/{id}",1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", Matchers.is(customer.getName())))
                 .andExpect(jsonPath("$.surname",Matchers.is(customer.getSurname())))
                 .andExpect(jsonPath("$.address",Matchers.is(customer.getAddress())))
-                .andExpect(jsonPath("$.accounts[0].displayName",Matchers.is(account.getDisplayName())));
+                .andExpect(jsonPath("$.accounts[0].displayName",Matchers.is(account.getDisplayName())))
+                .andDo(document("/api/customers/id-get",
+                        pathParameters(
+                                parameterWithName("id").description("Customers id")
+                        ),
+                        responseFields(
+                                fieldWithPath("name").description("Customer name"),
+                                fieldWithPath("surname").description("Customer surname"),
+                                fieldWithPath("birthDate").description("Customer birth date"),
+                                fieldWithPath("address").description("Customer address"),
+                                fieldWithPath("accounts[]").description("List of customer's accounts"),
+                                fieldWithPath("accounts[].displayName").description("Name of account")
+                        )
+                        ));
     }
 
     @Test()
@@ -105,7 +135,6 @@ public class CustomerControllerTest {
 
             mockMvc.perform(get("api/customers/11"))
                     .andExpect(status().isNotFound());
-
 
     }
 
@@ -122,11 +151,21 @@ public class CustomerControllerTest {
 
         when(customerService.createNewCustomer(any())).thenReturn(customer3);
 
+        ConstrainedFields fields = new ConstrainedFields(Customer.class);
+
         mockMvc.perform(
                 post("/api/customers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer3)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andDo(document("api/customers-new",
+                        requestFields(
+                                fields.withPath("name").description("Customer name"),
+                                fields.withPath("surname").description("Customer surname"),
+                                fields.withPath("birthDate").description("Customer birth date"),
+                                fields.withPath("address").description("Customer address"),
+                                fields.withPath("accounts[]").ignored()
+                        )));
 
     }
 
@@ -144,6 +183,21 @@ public class CustomerControllerTest {
                 .andExpect(status().isOk());
 
 
+    }
+
+    private static class ConstrainedFields {
+
+        private final ConstraintDescriptions constraintDescriptions;
+
+        ConstrainedFields(Class<?> input) {
+            this.constraintDescriptions = new ConstraintDescriptions(input);
+        }
+
+        private FieldDescriptor withPath(String path) {
+            return fieldWithPath(path).attributes(key("constraints").value(StringUtils
+                    .collectionToDelimitedString(this.constraintDescriptions
+                            .descriptionsForProperty(path), ". ")));
+        }
     }
 
     public static String asJsonString(final Object obj) {

@@ -42,6 +42,14 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer( String name,String surname, Date birthDate, String address) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.accounts = new ArrayList<>();
+    }
+
     public Customer(String name, String surname, Date birthDate, String address, List<Account> accounts) {
         this.name = name;
         this.surname = surname;
