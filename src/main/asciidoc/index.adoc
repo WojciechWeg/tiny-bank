@@ -3,8 +3,30 @@ Wojciech Węgierek;
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
+:toc:
 
+== GET ALL CUSTOMERS
 
+One showing how to make a request using cURL:
+
+include::{snippets}\api\customers-all\curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}\api\customers-all\http-request.adoc[]
+
+Request body:
+include::{snippets}\api\customers-all\request-body.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}\api\customers-all\http-response.adoc[]
+
+Response Body:
+include::{snippets}\api\customers-all\response-body.adoc[]
+
+Response Fields:
+include::{snippets}\api\customers-all\response-fields.adoc[]
 
 == GET CUSTOMER
 
@@ -72,3 +94,23 @@ include::{snippets}\api\customer-delete\http-response.adoc[]
 
 Response Body:
 include::{snippets}\api\customer-delete\response-body.adoc[]
+
+== OPEN ACCOUNT
+
+One showing how to make a request using cURL:
+
+include::{snippets}\api\open-account\curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/\api\open-account\http-request.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}\api\open-account\http-response.adoc[]
+
+Response Body:
+include::{snippets}\api\open-account\response-body.adoc[]
+
+Request fields:
+include::{snippets}\api\open-account\request-fields.adoc[]

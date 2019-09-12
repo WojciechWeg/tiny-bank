@@ -100,7 +100,26 @@ public class CustomerControllerTest {
 
         mockMvc.perform(get("/api/customers"))
                 .andExpect(jsonPath("$.content[0].name",Matchers.is(customer.getName())))
-                .andExpect(jsonPath("$.content[1].name",Matchers.is(customer2.getName())));
+                .andExpect(jsonPath("$.content[1].name",Matchers.is(customer2.getName())))
+                .andDo(document("api/customers-all",
+                            responseFields(
+                                    fieldWithPath("links[].rel").ignored(),
+                                    fieldWithPath("links[].href").description("Link to whole list."),
+                                    fieldWithPath("links[].hreflang").ignored(),
+                                    fieldWithPath("links[].media").ignored(),
+                                    fieldWithPath("links[].title").ignored(),
+                                    fieldWithPath("links[].type").ignored(),
+                                    fieldWithPath("links[].deprecation").ignored(),
+                                    fieldWithPath("content[].").description("Table of content/list of customers."),
+                                    fieldWithPath("content[].name").ignored(),
+                                    fieldWithPath("content[].surname").ignored(),
+                                    fieldWithPath("content[].birthDate").ignored(),
+                                    fieldWithPath("content[].address").ignored(),
+                                    fieldWithPath("content[].accounts[]").ignored(),
+                                    fieldWithPath("content[].accounts[].displayName").ignored()
+
+                            )
+                        ));
     }
 
     @Test
@@ -176,6 +195,7 @@ public class CustomerControllerTest {
 
     @Test
     public void openAccount() throws Exception {
+        ConstrainedFields fields = new ConstrainedFields(Account.class);
 
         String json = "{ \"displayName\": \"Osczednosciowe\"}";
 
@@ -185,7 +205,12 @@ public class CustomerControllerTest {
                 put("/api/customers/2/open_account")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(document("api/open-account",
+                        requestFields(
+                                fields.withPath("displayName").description("Account name")
+                        )
+                ));
 
 
     }
