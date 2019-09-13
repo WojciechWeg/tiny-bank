@@ -10,12 +10,15 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Component
 public class Bootstrap implements CommandLineRunner {
 
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
+    private final Logger log = Logger.getLogger(getClass().getName());
 
     public Bootstrap(CustomerRepository customerRepository, AccountRepository accountRepository) {
         this.customerRepository = customerRepository;
@@ -47,7 +50,6 @@ public class Bootstrap implements CommandLineRunner {
         accountsOfCustomer1.add(account2);
 
         customer1.setAccounts(accountsOfCustomer1);
-
-        System.out.println("Customers loaded.");
+        log.log(Level.INFO,"Customers loaded");
     }
 }

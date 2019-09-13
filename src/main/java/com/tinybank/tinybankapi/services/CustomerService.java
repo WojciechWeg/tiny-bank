@@ -14,7 +14,7 @@ public interface CustomerService {
 
     void deleteCustomerById(Long id);
 
-    Customer createNewCustomer(Customer Customer);
+    Customer createNewCustomer(Customer customer);
 
-    Account openAccount(Long id, Account Account);
+    Account openAccount(Long id, Account account);
 }

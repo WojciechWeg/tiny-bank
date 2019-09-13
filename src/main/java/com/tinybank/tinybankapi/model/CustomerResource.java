@@ -1,7 +1,6 @@
 package com.tinybank.tinybankapi.model;
 
 import com.tinybank.tinybankapi.controllers.CustomerController;
-import com.tinybank.tinybankapi.model.Customer;
 import org.springframework.hateoas.ResourceSupport;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

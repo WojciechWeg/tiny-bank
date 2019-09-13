@@ -52,9 +52,9 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<CustomerResource> createNewCustomer(@RequestBody @Valid Customer Customer) {
+    public ResponseEntity<CustomerResource> createNewCustomer(@RequestBody @Valid Customer customerRequestBody) {
 
-        Customer customer = customerService.createNewCustomer(Customer);
+        Customer customer = customerService.createNewCustomer(customerRequestBody);
         URI uri = MvcUriComponentsBuilder.fromController(getClass())
                 .path("/{id}")
                 .buildAndExpand(customer.getId())

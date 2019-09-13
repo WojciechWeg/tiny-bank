@@ -55,7 +55,7 @@ public class Customer {
         this.surname = surname;
         this.birthDate = birthDate;
         this.address = address;
-        this.accounts = new ArrayList<Account>(accounts);
+        this.accounts = new ArrayList<>(accounts);
     }
 
     public Long getId() {
@@ -79,7 +79,7 @@ public class Customer {
     }
 
     public List<Account> getAccounts() {
-        return new ArrayList<Account>(accounts);
+        return new ArrayList<>(accounts);
     }
 
     public void setId(Long id) {

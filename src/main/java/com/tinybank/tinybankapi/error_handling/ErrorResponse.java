@@ -2,7 +2,6 @@ package com.tinybank.tinybankapi.error_handling;
 
 import org.springframework.http.HttpStatus;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ErrorResponse {

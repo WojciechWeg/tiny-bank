@@ -52,11 +52,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Account openAccount(Long id, Account Account) {
+    public Account openAccount(Long id, Account accountInput) {
         //stwórz i ustaw obiekt Account
         Account account = new Account();
         account.setCustomer(getCustomerById(id));
-        account.setDisplayName(Account.getDisplayName());
+        account.setDisplayName(accountInput.getDisplayName());
 
         //doddaj nowe konto do klienta
         getCustomerById(id).addAccount(account);
