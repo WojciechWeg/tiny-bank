@@ -132,7 +132,7 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.surname",Matchers.is(customer.getSurname())))
                 .andExpect(jsonPath("$.address",Matchers.is(customer.getAddress())))
                 .andExpect(jsonPath("$.accounts[0].displayName",Matchers.is(account.getDisplayName())))
-                .andDo(document("/api/customers-get",
+                .andDo(document("api/customers-get",
                         pathParameters(
                                 parameterWithName("id").description("Customers id")
                         ),
