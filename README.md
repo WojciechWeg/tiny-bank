@@ -9,3 +9,5 @@ Once customer is in "bank" API client can do CRUD operations and open account/ac
 To start project run start.bat.
 
 Java 1.8 is necessary to run project.
+
+Project was made in Spring Boot Framework.
